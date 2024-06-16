@@ -2,8 +2,8 @@
   "name": "server",
   "version": "1.0.0",
   "main": "./src/index.ts",
-  "scripts": { 
-    "dev": "nodemon " 
+  "scripts": {
+    "dev": "nodemon "
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-oauth2-jwt-bearer": "^1.6.0",
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1"
   },
