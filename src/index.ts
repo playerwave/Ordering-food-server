@@ -2,20 +2,22 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
+import myUserRoute from "./routes/MyUserRoute";
 
 mongoose
-  .connect(process.env.MONGODB_CONNECTION_STRRING as string)
-  .then(() => console.log("Connect to database."));
+  .connect(process.env.MONGODB_CONNECTION_STRING as string)
+  .then(() => console.log("Connect to database."))
+  .catch((err) => {
+    console.error("Error connecting to the database:", err);
+  });
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.get("/test", async (req: Request, res: Response) => {
-  res.json({ message: "Hello" });
-});
+app.use("/api/my/user", myUserRoute);
 
-app.listen(7000, () => {
-  console.log("server started on localhost:7000");
+app.listen(5080, () => {
+  console.log("server started on localhost:5080");
 });
