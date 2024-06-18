@@ -25,27 +25,32 @@ export const jwtParse = async (
 ) => {
   const { authorization } = req.headers;
 
-  if (!authorization || !authorization.startsWith("Bearer")) {
-    return res.send(401);
+  if (!authorization || !authorization.startsWith("Bearer ")) {
+    console.log("Error Auth");
+
+    return res.sendStatus(401);
   }
 
-  const token = authorization.split("  ")[1];
+  const token = authorization.split(" ")[1];
 
   try {
     const decoded = Jwt.decode(token) as Jwt.JwtPayload;
+
     const auth0Id = decoded.sub;
 
     const user = await User.findOne({ auth0Id });
 
-    if(!user){
+    if (!user) {
+      console.log("Error no user");
+
       return res.sendStatus(401);
     }
 
     req.auth0Id = auth0Id as string;
     req.userId = user._id.toString();
     next();
-
   } catch (error) {
+    console.error("JWT verification error:", error);
     return res.sendStatus(401);
   }
 };
