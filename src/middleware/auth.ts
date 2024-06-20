@@ -47,7 +47,11 @@ export const jwtParse = async (
     }
 
     req.auth0Id = auth0Id as string;
-    req.userId = user._id.toString();
+    
+    if(user._id !== null){
+      req.userId = user._id.toString();
+    }
+    
     next();
   } catch (error) {
     console.error("JWT verification error:", error);
